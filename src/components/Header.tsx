@@ -5,7 +5,11 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function Header() {
+interface HeaderProps {
+  hideSearch?: boolean;
+}
+
+export default function Header({ hideSearch = false }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
@@ -20,6 +24,7 @@ export default function Header() {
   }, [])
 
   const isSignInPage = pathname === '/signin'
+  const isSignUpPage = pathname === '/signup'
   const isAboutPage = pathname === '/about'
   const isCartPage = pathname === '/cart'
 
@@ -37,7 +42,7 @@ export default function Header() {
           FARMEZY
         </Link>
         <nav className="hidden md:flex items-center space-x-6">
-          {!isSignInPage && (
+          {!isSignInPage && !isSignUpPage && (
             <Link href="/signin" className="text-lg text-[#4A4A4A] hover:underline">
               Sign in
             </Link>
@@ -85,7 +90,7 @@ export default function Header() {
       </div>
       
       {/* Search bar */}
-      {!isSignInPage && (
+      {!hideSearch && !isSignInPage && !isSignUpPage && (
         <div className="container mx-auto px-4 pb-4">
           <div className="relative">
             <input
@@ -119,7 +124,7 @@ export default function Header() {
             transition={{ duration: 0.3 }}
           >
             <div className="container mx-auto px-4 py-20 flex flex-col space-y-6">
-              {!isSignInPage && (
+              {!isSignInPage && !isSignUpPage && (
                 <Link href="/signin" className="text-2xl text-[#4A4A4A] hover:underline">
                   Sign in
                 </Link>

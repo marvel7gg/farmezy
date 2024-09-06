@@ -20,7 +20,7 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header hideSearch={true} />
       <main className="flex-grow pt-32">
         <div className="container mx-auto px-4">
           <motion.div
